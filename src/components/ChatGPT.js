@@ -67,7 +67,7 @@ function ChatGPT() {
           Enter a DnD character description:
           <input type="text" value={characterMessage} onChange={handleCharacterChange} />
         </label>
-        <md-outlined-button label="Submit">Generate Character</md-outlined-button>
+        <button type="submit">Generate Character</button>
       </form>
       <div>{characterResponse}</div>
 

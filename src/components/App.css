@@ -1,38 +1,82 @@
-.App {
+/* Style for character section */
+.character-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.character-description {
+  width: 50%;
+  text-align: center;
+  padding: 20px;
+}
+
+.character-model {
+  width: 50%;
+  height: auto;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Style for map section */
+.map-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-description {
+  width: 50%;
+  text-align: center;
+  padding: 20px;
+}
+
+.map-image {
+  width: 50%;
+  height: auto;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Style for character stats */
+.character-stats {
+  margin-top: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.character-stats h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.character-stats p {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Style for character description and dialogue */
+.character-description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.character-description p {
+  font-size: 16px;
+  margin-bottom: 5px;
+  line-height: 1.5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Style for map description */
+.map-description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.map-description p {
+  font-size: 16px;
+  margin-bottom: 5px;
+  line-height: 1.5;
 }
