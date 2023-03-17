@@ -20,13 +20,13 @@ function DALLE2() {
     event.preventDefault();
     axios.post('https://api.openai.com/v1/images/generations', {
       model: 'image-alpha-001',
-      prompt: `DnD character ${characterResponse}`,
+      prompt: `Photorealistic portrait of DnD character ${characterResponse}`,
       num_images: 1,
       size: '512x512',
     }, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_DALLE2_API_KEY_HERE'
+        'Authorization': 'Bearer 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'
       }
     })
       .then((response) => {
@@ -41,13 +41,13 @@ function DALLE2() {
     event.preventDefault();
     axios.post('https://api.openai.com/v1/images/generations', {
       model: 'image-alpha-001',
-      prompt: `DnD map ${mapResponse}`,
+      prompt: `Simple Dungeons and Dragons map in the style of Roll20 ${mapResponse}`,
       num_images: 1,
-      size: '512x512',
+      size: '1024x1024',
     }, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_DALLE2_API_KEY_HERE'
+        'Authorization': 'Bearer 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'
       }
     })
       .then((response) => {

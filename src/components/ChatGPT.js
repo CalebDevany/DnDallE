@@ -1,86 +1,218 @@
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '@material/web/button/filled-button.js';
+import React, { useState } from "react";
+import axios from "axios";
 
+function CharacterGenerator() {
+  const [generatedCharacter, setGeneratedCharacter] = useState(null);
+  const [characterName, setCharacterName] = useState("");
+  const [characterRace, setCharacterRace] = useState("");
+  const [characterClass, setCharacterClass] = useState("");
+  const [characterStats, setCharacterStats] = useState({
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+  });
+  const [generatedImage, setGeneratedImage] = useState(null);
+  const [selectedModel, setSelectedModel] = useState("64");
 
-function ChatGPT() {
-  const [characterMessage, setCharacterMessage] = useState('');
-  const [dialogueMessage, setDialogueMessage] = useState('');
-  const [characterResponse, setCharacterResponse] = useState('');
-  const [dialogueResponse, setDialogueResponse] = useState('');
-
-  const handleCharacterChange = (event) => {
-    setCharacterMessage(event.target.value);
-  };
-
-  const handleDialogueChange = (event) => {
-    setDialogueMessage(event.target.value);
-  };
-
-  const handleCharacterSubmit = (event) => {
-    event.preventDefault();
-    axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
-      prompt: characterMessage,
-      max_tokens: 60,
-      n: 1,
-      stop: ['\n']
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_CHATGPT_API_KEY_HERE'
+  const generateCharacter = async () => {
+    const response = await axios.post(
+      "https://api.openai.com/v1/engines/text-davinci-002/completions",
+      {
+        params: {
+          prompt: "Generate a Dungeons and Dragons character named ",
+          max_tokens: 1024,
+          temperature: 0.7,
+          n: 1,
+          stop: "\n\n",
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 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'
+        },
       }
-    })
+    );
+
+    const { choices } = response.data;
+    const { text } = choices[0];
+    const characterData = JSON.parse(text.trim());
+    setGeneratedCharacter(characterData);
+    setCharacterName(characterData.name);
+    setCharacterRace(characterData.race);
+    setCharacterClass(characterData.class);
+    setCharacterStats(characterData.stats);
+  };
+
+  const generateImage = (event) => {
+    event.preventDefault();
+    axios
+      .post(
+        "https://api.openai.com/v1/images/generations",
+        {
+          model: "image-alpha-001",
+          prompt: `Photorealistic portrait of DnD character ${characterRace} ${characterClass}`,
+          num_images: 1,
+          size: "512x512",
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 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'
+          },
+        }
+      )
       .then((response) => {
-        setCharacterResponse(response.data.choices[0].text);
+        setGeneratedImage(response.data.data[0].url);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const handleDialogueSubmit = (event) => {
-    event.preventDefault();
-    axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
-      prompt: dialogueMessage,
-      max_tokens: 60,
-      n: 1,
-      stop: ['\n']
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_CHATGPT_API_KEY_HERE'
-      }
-    })
-      .then((response) => {
-        setDialogueResponse(response.data.choices[0].text);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleStatChange = (event) => {
+    const statName = event.target.name;
+    const statValue = parseInt(event.target.value);
+    const newStats = { ...characterStats, [statName]: statValue };
+    setCharacterStats(newStats);
+  };
+
+  const handleSubmit = async (event) => {
+    await event.preventDefault();
+    await generateCharacter();
+    await generateImage();
   };
 
   return (
     <div>
-      <form onSubmit={handleCharacterSubmit}>
+      <h1>Character Generator</h1>
+      <form onSubmit={handleSubmit}>
         <label>
-          Enter a DnD character description:
-          <input type="text" value={characterMessage} onChange={handleCharacterChange} />
+          Name:
+          <input
+            type="text"
+            value={characterName}
+            onChange={(event) => setCharacterName(event.target.value)}
+          />
         </label>
-        <button type="submit">Generate Character</button>
-      </form>
-      <div>{characterResponse}</div>
-
-      <form onSubmit={handleDialogueSubmit}>
+        <br />
         <label>
-          Enter dialogue for your character:
-          <input type="text" value={dialogueMessage} onChange={handleDialogueChange} />
+          Race:
+          <input
+            type="text"
+            value={characterRace}
+            onChange={(event) => setCharacterRace(event.target.value)}
+          />
         </label>
-        <button type="submit">Generate Dialogue</button>
+        <br />
+        <label>
+          Class:
+          <input
+            type="text"
+            value={characterClass}
+            onChange={(event) => setCharacterClass(event.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Strength:
+          <input
+            type="number"
+            name="strength"
+            value={characterStats.strength}
+            onChange={handleStatChange}
+          />
+        </label>
+        <br />
+        <label>
+          Dexterity:
+          <input
+            type="number"
+            name="dexterity"
+            value={characterStats.dexterity}
+            onChange={handleStatChange}
+          />
+        </label>
+        <br />
+        <label>
+          Constitution:
+          <input
+            type="number"
+            name="constitution"
+            value={characterStats.constitution}
+            onChange={handleStatChange}
+          />
+        </label>
+        <br />
+        <label>
+          Intelligence:
+          <input
+            type="number"
+            name="intelligence"
+            value={characterStats.intelligence}
+            onChange={handleStatChange}
+          />
+        </label>
+        <br />
+        <label>
+          Wisdom:
+          <input
+            type="number"
+            name="wisdom"
+            value={characterStats.wisdom}
+            onChange={handleStatChange}
+          />
+        </label>
+        <br />
+        <label>
+          Charisma:
+          <input
+            type="number"
+            name="charisma"
+            value={characterStats.charisma}
+            onChange={handleStatChange}
+          />
+        </label>
+        <br />
+        <label>
+          Image size:
+          <select
+            value={selectedModel}
+            onChange={(event) => setSelectedModel(event.target.value)}
+          >
+            <option value="256">256x256</option>
+            <option value="512">512x512</option>
+            <option value="1024">1024x1024</option>
+          </select>
+        </label>
+        <br />
+        <button type="submit">Generate</button>
       </form>
-      <div>{dialogueResponse}</div>
+      {generatedCharacter && (
+        <div>
+          <h2>{generatedCharacter.name}</h2>
+          <p>
+            {generatedCharacter.race} {generatedCharacter.class}
+          </p>
+          <ul>
+            <li>Strength: {generatedCharacter.stats.strength}</li>
+            <li>Dexterity: {generatedCharacter.stats.dexterity}</li>
+            <li>Constitution: {generatedCharacter.stats.constitution}</li>
+            <li>Intelligence: {generatedCharacter.stats.intelligence}</li>
+            <li>Wisdom: {generatedCharacter.stats.wisdom}</li>
+            <li>Charisma: {generatedCharacter.stats.charisma}</li>
+          </ul>
+        </div>
+      )}
+      {generatedImage && (
+        <div>
+          <h2>Image</h2>
+          <img src={generatedImage} alt={{generatedCharacter}} />
+        </div>
+      )}
     </div>
   );
 }
 
-export default ChatGPT;
+export default CharacterGenerator;
