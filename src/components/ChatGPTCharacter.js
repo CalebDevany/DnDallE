@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./App.css";
 
-function CharacterGenerator() {
+function ChatGPTCharacter() {
   const [generatedCharacter, setGeneratedCharacter] = useState(null);
   const [characterName, setCharacterName] = useState("");
   const [characterRace, setCharacterRace] = useState("");
@@ -15,7 +16,6 @@ function CharacterGenerator() {
     charisma: 10,
   });
   const [generatedImage, setGeneratedImage] = useState(null);
-  const [selectedModel, setSelectedModel] = useState("64");
 
   const generateCharacter = async () => {
     const response = await axios.post(
@@ -29,8 +29,9 @@ function CharacterGenerator() {
           stop: "\n\n",
         },
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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'
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer {API-KEY}",
         },
       }
     );
@@ -45,10 +46,10 @@ function CharacterGenerator() {
     setCharacterStats(characterData.stats);
   };
 
-  const generateImage = (event) => {
+  const generateImage = async (event) => {
     event.preventDefault();
-    axios
-      .post(
+    try {
+      const response = await axios.post(
         "https://api.openai.com/v1/images/generations",
         {
           model: "image-alpha-001",
@@ -58,17 +59,18 @@ function CharacterGenerator() {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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'
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer {API-KEY}",
           },
         }
-      )
-      .then((response) => {
-        setGeneratedImage(response.data.data[0].url);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      );
+
+      const imageUrl = response.data.data[0].url;
+      setGeneratedImage(imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleStatChange = (event) => {
@@ -79,45 +81,49 @@ function CharacterGenerator() {
   };
 
   const handleSubmit = async (event) => {
-    await event.preventDefault();
+    event.preventDefault();
     await generateCharacter();
     await generateImage();
   };
 
   return (
-    <div>
-      <h1>Character Generator</h1>
+    <div className="character-generator-container">
+      <h1 className="title">Character Generator</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="form-label">
           Name:
           <input
+            className="form-input"
             type="text"
             value={characterName}
             onChange={(event) => setCharacterName(event.target.value)}
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Race:
           <input
+            className="form-input"
             type="text"
             value={characterRace}
             onChange={(event) => setCharacterRace(event.target.value)}
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Class:
           <input
+            className="form-input"
             type="text"
             value={characterClass}
             onChange={(event) => setCharacterClass(event.target.value)}
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Strength:
           <input
+            className="form-input"
             type="number"
             name="strength"
             value={characterStats.strength}
@@ -125,9 +131,10 @@ function CharacterGenerator() {
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Dexterity:
           <input
+            className="form-input"
             type="number"
             name="dexterity"
             value={characterStats.dexterity}
@@ -135,9 +142,10 @@ function CharacterGenerator() {
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Constitution:
           <input
+            className="form-input"
             type="number"
             name="constitution"
             value={characterStats.constitution}
@@ -145,9 +153,10 @@ function CharacterGenerator() {
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Intelligence:
           <input
+            className="form-input"
             type="number"
             name="intelligence"
             value={characterStats.intelligence}
@@ -155,9 +164,10 @@ function CharacterGenerator() {
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Wisdom:
           <input
+            className="form-input"
             type="number"
             name="wisdom"
             value={characterStats.wisdom}
@@ -165,9 +175,10 @@ function CharacterGenerator() {
           />
         </label>
         <br />
-        <label>
+        <label className="form-label">
           Charisma:
           <input
+            className="form-input"
             type="number"
             name="charisma"
             value={characterStats.charisma}
@@ -175,44 +186,37 @@ function CharacterGenerator() {
           />
         </label>
         <br />
-        <label>
-          Image size:
-          <select
-            value={selectedModel}
-            onChange={(event) => setSelectedModel(event.target.value)}
-          >
-            <option value="256">256x256</option>
-            <option value="512">512x512</option>
-            <option value="1024">1024x1024</option>
-          </select>
-        </label>
-        <br />
-        <button type="submit">Generate</button>
+        <button className="generate-button" type="submit">
+          Generate Character
+        </button>
       </form>
       {generatedCharacter && (
-        <div>
-          <h2>{generatedCharacter.name}</h2>
-          <p>
+        <div className="generated-character-container">
+          <h2 className="generated-character-name">
+            {generatedCharacter.name}
+          </h2>
+          <p className="generated-character-race-class">
             {generatedCharacter.race} {generatedCharacter.class}
           </p>
-          <ul>
-            <li>Strength: {generatedCharacter.stats.strength}</li>
-            <li>Dexterity: {generatedCharacter.stats.dexterity}</li>
-            <li>Constitution: {generatedCharacter.stats.constitution}</li>
-            <li>Intelligence: {generatedCharacter.stats.intelligence}</li>
-            <li>Wisdom: {generatedCharacter.stats.wisdom}</li>
-            <li>Charisma: {generatedCharacter.stats.charisma}</li>
-          </ul>
-        </div>
-      )}
-      {generatedImage && (
-        <div>
-          <h2>Image</h2>
-          <img src={generatedImage} alt={{generatedCharacter}} />
+          <p className="generated-character-stats">
+            Strength: {generatedCharacter.stats.strength}, Dexterity:{" "}
+            {generatedCharacter.stats.dexterity}, Constitution:{" "}
+            {generatedCharacter.stats.constitution}, Intelligence:{" "}
+            {generatedCharacter.stats.intelligence}, Wisdom:{" "}
+            {generatedCharacter.stats.wisdom}, Charisma:{" "}
+            {generatedCharacter.stats.charisma}
+          </p>
+          {generatedImage && (
+            <img
+              className="generated-image"
+              src={generatedImage}
+              alt={`${characterRace} ${characterClass}`}
+            />
+          )}
         </div>
       )}
     </div>
   );
 }
 
-export default CharacterGenerator;
+export default ChatGPTCharacter;

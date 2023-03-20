@@ -1,13 +1,19 @@
 import './App.css';
 import React from 'react';
-import ChatGPT from './ChatGPT';
 import DALLE2 from './Dalle2';
+import ChatGPTCharacter from './ChatGPTCharacter';
+import ChatGPTMonster from './ChatGPTMonster';
+
 
 function App() {
   return (
-    <div>
-      <ChatGPT />
+    <div className="main">
+      <ChatGPTCharacter />
+      <ChatGPTMonster />
       <DALLE2 />
+      <footer>
+        <p>&copy; 2023 DnDALLE</p>
+      </footer>
     </div>
   );
 }

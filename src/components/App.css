@@ -1,4 +1,53 @@
-/* Style for character section */
+/* Set global font and colors */
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #262626;
+}
+
+/* Style the header section */
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #444444;
+}
+
+header h1 {
+  font-size: 36px;
+  margin: 0;
+  color: #ffffff;
+}
+
+header nav {
+  display: flex;
+  flex-direction: row;
+}
+
+header nav a {
+  margin-right: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+header nav a:hover {
+  color: #c6c6c6;
+}
+
+/* Style the main content section */
+main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the character section */
 .character-section {
   display: flex;
   flex-wrap: wrap;
@@ -11,6 +60,9 @@
   width: 50%;
   text-align: center;
   padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px #cccccc;
+  border-radius: 5px;
 }
 
 .character-model {
@@ -20,7 +72,7 @@
   margin: 0 auto;
 }
 
-/* Style for map section */
+/* Style the map section */
 .map-section {
   display: flex;
   flex-wrap: wrap;
@@ -32,6 +84,9 @@
   width: 50%;
   text-align: center;
   padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px #cccccc;
+  border-radius: 5px;
 }
 
 .map-image {
@@ -41,42 +96,28 @@
   margin: 0 auto;
 }
 
-/* Style for character stats */
-.character-stats {
-  margin-top: 20px;
+/* Style the footer section */
+footer {
+  padding: 20px;
+  background-color: #444444;
   text-align: center;
+  color: #ffffff;
 }
 
-.character-stats h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
+footer p {
+  margin: 0;
 }
 
-.character-stats p {
-  font-size: 16px;
-  margin-bottom: 5px;
+/* Style the button */
+button {
+  background-color: #c51e3a;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* Style for character description and dialogue */
-.character-description h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.character-description p {
-  font-size: 16px;
-  margin-bottom: 5px;
-  line-height: 1.5;
-}
-
-/* Style for map description */
-.map-description h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.map-description p {
-  font-size: 16px;
-  margin-bottom: 5px;
-  line-height: 1.5;
+button:hover {
+  background-color: #af1b34;
 }
