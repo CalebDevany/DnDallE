@@ -16,11 +16,12 @@ function MonsterGenerator() {
   });
   const [generatedImage, setGeneratedImage] = useState(null);
 
-  const generateMonster = async () => {
-    const response = await axios.post(
-      "https://api.openai.com/v1/engines/text-davinci-002/completions",
+  const generateMonster= async () => {
+    const response = await axios.get(
+      "https://api.openai.com/v1/completions",
       {
         params: {
+          model: "text-davinci-003",
           prompt: "Generate a Dungeons and Dragons monster named ",
           max_tokens: 1024,
           temperature: 0.7,
@@ -29,9 +30,9 @@ function MonsterGenerator() {
         },
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer {API-KEY}",
-        },
+        Authorization:
+          "Bearer {API-KEY}",
+      },
       }
     );
 
@@ -58,8 +59,8 @@ function MonsterGenerator() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer {API-KEY}",
+          Authorization:
+            "Bearer {API-KEY}",
           },
         }
       );

@@ -37,8 +37,8 @@ function DALLE2() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer {API-KEY}",
+          Authorization:
+            "Bearer {API-KEY}",
           },
         }
       )
@@ -65,8 +65,8 @@ function DALLE2() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer {API-KEY}",
+          Authorization:
+            "Bearer {API-KEY}",
           },
         }
       )
@@ -85,15 +85,15 @@ function DALLE2() {
         "https://api.openai.com/v1/images/generations",
         {
           model: "image-alpha-001",
-          prompt: `Photorealistic portrait of DnD monster ${monsterResponse}`,
+          prompt: `Photorealistic DnD monster ${monsterResponse}`,
           num_images: 1,
           size: "512x512",
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer {API-KEY}",
+          Authorization:
+            "Bearer {API-KEY}",
           },
         }
       )

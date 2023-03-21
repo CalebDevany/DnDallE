@@ -18,10 +18,11 @@ function ChatGPTCharacter() {
   const [generatedImage, setGeneratedImage] = useState(null);
 
   const generateCharacter = async () => {
-    const response = await axios.post(
-      "https://api.openai.com/v1/engines/text-davinci-002/completions",
+    const response = await axios.get(
+      "https://api.openai.com/v1/completions",
       {
         params: {
+          model: "text-davinci-003",
           prompt: "Generate a Dungeons and Dragons character named ",
           max_tokens: 1024,
           temperature: 0.7,
@@ -30,9 +31,9 @@ function ChatGPTCharacter() {
         },
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer {API-KEY}",
-        },
+        Authorization:
+          "Bearer {API-KEY}",
+      },
       }
     );
 
@@ -61,7 +62,7 @@ function ChatGPTCharacter() {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer {API-KEY}",
+            "Bearer {API-KEY}",
           },
         }
       );
