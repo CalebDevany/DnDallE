@@ -1,8 +1,8 @@
 /* Set global font and colors */
 body {
-  font-family: "Open Sans", Arial, sans-serif;
-  background-color: #f0f0f0;
-  color: #262626;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 /* Style the header section */
@@ -12,13 +12,14 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #444444;
+  background-color: #333;
 }
 
 header h1 {
   font-size: 36px;
   margin: 0;
-  color: #ffffff;
+  color: #fff;
+  font-family: 'Beleren-Bold', sans-serif;
 }
 
 header nav {
@@ -28,14 +29,15 @@ header nav {
 
 header nav a {
   margin-right: 20px;
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
+  font-family: 'Beleren-Bold', sans-serif;
 }
 
 header nav a:hover {
-  color: #c6c6c6;
+  color: #b2b2b2;
 }
 
 /* Style the main content section */
@@ -53,15 +55,14 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 .character-description {
   width: 50%;
   text-align: center;
   padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px #cccccc;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #ccc;
   border-radius: 5px;
 }
 
@@ -72,36 +73,60 @@ main {
   margin: 0 auto;
 }
 
-/* Style the map section */
-.map-section {
+/* Style the monster section */
+.monster-section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-bottom: 30px;
 }
 
-.map-description {
+.monster-description {
   width: 50%;
   text-align: center;
   padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px #cccccc;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #ccc;
   border-radius: 5px;
 }
 
-.map-image {
+.monster-model {
   width: 50%;
   height: auto;
   max-width: 400px;
   margin: 0 auto;
 }
 
+
+/* Style the model generator section */
+.form-dalle {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #ccc;
+  width: 100%;
+}
+
+.form-group-dalle {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.label-dalle {
+  text-align: center;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+
+}
+
 /* Style the footer section */
 footer {
   padding: 20px;
-  background-color: #444444;
+  background-color: #333;
   text-align: center;
-  color: #ffffff;
+  color: #fff;
 }
 
 footer p {
@@ -111,13 +136,64 @@ footer p {
 /* Style the button */
 button {
   background-color: #c51e3a;
-  color: #ffffff;
+  color: #fff;
   border: none;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  font-family: 'Beleren-Bold', sans-serif;
+  margin: 10px;
 }
 
 button:hover {
   background-color: #af1b34;
 }
+
+/* Style the form */
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  }
+  
+  .form-group textarea {
+  height: 100px;
+  }
+  
+  .form-group input[type="submit"] {
+  background-color: #c51e3a;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Beleren-Bold', sans-serif;
+  }
+  
+  .form-group input[type="submit"]:hover {
+  background-color: #af1b34;
+  }

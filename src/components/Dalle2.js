@@ -29,16 +29,14 @@ function DALLE2() {
         "https://api.openai.com/v1/images/generations",
         {
           model: "image-alpha-001",
-          prompt:
-          `Photorealistic portrait of DnD character ${characterResponse}`,
+          prompt: `Photorealistic portrait of DnD character ${characterResponse}`,
           num_images: 1,
           size: "512x512",
         },
         {
           headers: {
             "Content-Type": "application/json",
-          Authorization:
-            "Bearer {API-KEY}",
+            Authorization: "Bearer <OPENAI_API_KEY>",
           },
         }
       )
@@ -57,16 +55,14 @@ function DALLE2() {
         "https://api.openai.com/v1/images/generations",
         {
           model: "image-alpha-001",
-          prompt:
-          `Simple Dungeons and Dragons map in the style of Roll20 ${mapResponse}`,
+          prompt: `Photorealistic Dungeons and Dragons map in the style of Roll20 ${mapResponse}`,
           num_images: 1,
-          size: "1024x1024",
+          size: "512x512",
         },
         {
           headers: {
             "Content-Type": "application/json",
-          Authorization:
-            "Bearer {API-KEY}",
+            Authorization: "Bearer <OPENAI_API_KEY>",
           },
         }
       )
@@ -87,13 +83,12 @@ function DALLE2() {
           model: "image-alpha-001",
           prompt: `Photorealistic DnD monster ${monsterResponse}`,
           num_images: 1,
-          size: "512x512",
+          size: "1024x1024",
         },
         {
           headers: {
             "Content-Type": "application/json",
-          Authorization:
-            "Bearer {API-KEY}",
+            Authorization: "Bearer <OPENAI_API_KEY>",
           },
         }
       )
@@ -106,11 +101,12 @@ function DALLE2() {
   };
 
   return (
-    <div>
+    <div class="form-group-dalle">
       <form onSubmit={handleCharacterSubmit}>
-        <label>
+        <label class="label-dalle">
           Enter a DnD character description:
           <input
+            class="form-dalle"
             type="text"
             value={characterResponse}
             onChange={handleCharacterChange}
@@ -119,20 +115,17 @@ function DALLE2() {
         <button type="submit">Generate Character Image</button>
       </form>
 
-      {characterImage && <img src={characterImage} alt="DnD character" />}
-      <form onSubmit={handleMapSubmit}>
-        <label>
-          Enter a DnD map description:
-          <input type="text" value={mapResponse} onChange={handleMapChange} />
-        </label>
-        <button type="submit">Generate Map Image</button>
-      </form>
+      {characterImage && (
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <img src={characterImage} alt="DnD character" />
+        </div>
+      )}
 
-      {mapImage && <img src={mapImage} alt="DnD map" />}
       <form onSubmit={handleMonsterSubmit}>
-        <label>
+        <label class="label-dalle">
           Enter a DnD monster description:
           <input
+            class="form-dalle"
             type="text"
             value={monsterResponse}
             onChange={handleMonsterChange}
@@ -141,7 +134,30 @@ function DALLE2() {
         <button type="submit">Generate Monster Image</button>
       </form>
 
-      {monsterImage && <img src={monsterImage} alt="DnD monster" />}
+      {monsterImage && (
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <img src={monsterImage} alt="DnD monster" />
+        </div>
+      )}
+
+      <form onSubmit={handleMapSubmit}>
+        <label class="label-dalle">
+          Enter a DnD map description:
+          <input
+            class="form-dalle"
+            type="text"
+            value={mapResponse}
+            onChange={handleMapChange}
+          />
+        </label>
+        <button type="submit">Generate Map Image</button>
+      </form>
+
+      {mapImage && (
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <img src={mapImage} alt="DnD map" />
+        </div>
+      )}
     </div>
   );
 }

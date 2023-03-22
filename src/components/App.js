@@ -8,6 +8,9 @@ import ChatGPTMonster from './ChatGPTMonster';
 function App() {
   return (
     <div className="main">
+      <header>
+        <h1 class="title">DnDALLE</h1>
+      </header>
       <ChatGPTCharacter />
       <ChatGPTMonster />
       <DALLE2 />

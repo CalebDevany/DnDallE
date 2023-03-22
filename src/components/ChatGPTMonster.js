@@ -16,25 +16,21 @@ function MonsterGenerator() {
   });
   const [generatedImage, setGeneratedImage] = useState(null);
 
-  const generateMonster= async () => {
-    const response = await axios.get(
-      "https://api.openai.com/v1/completions",
-      {
-        params: {
-          model: "text-davinci-003",
-          prompt: "Generate a Dungeons and Dragons monster named ",
-          max_tokens: 1024,
-          temperature: 0.7,
-          n: 1,
-          stop: "\n\n",
-        },
-        headers: {
-          "Content-Type": "application/json",
-        Authorization:
-          "Bearer {API-KEY}",
+  const generateMonster = async () => {
+    const response = await axios.get("https://api.openai.com/v1/completions", {
+      params: {
+        model: "text-davinci-003",
+        prompt: "Generate a Dungeons and Dragons monster named ",
+        max_tokens: 1024,
+        temperature: 0.7,
+        n: 1,
+        stop: "\n\n",
       },
-      }
-    );
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer <OPENAI_API_KEY>",
+      },
+    });
 
     const { choices } = response.data;
     const { text } = choices[0];
@@ -59,8 +55,7 @@ function MonsterGenerator() {
         {
           headers: {
             "Content-Type": "application/json",
-          Authorization:
-            "Bearer {API-KEY}",
+            Authorization: "Bearer <OPENAI_API_KEY>",
           },
         }
       );
@@ -86,130 +81,120 @@ function MonsterGenerator() {
   };
 
   return (
-    <div className="monster-generator-container">
-      <h1 className="title">Monster Generator</h1>
-      <form onSubmit={handleSubmit}>
-        <label className="form-label">
-          Name:
-          <input
-            className="form-input"
-            type="text"
-            value={monsterName}
-            onChange={(event) => setMonsterName(event.target.value)}
-          />
-        </label>
-        <br />
-        <label className="form-label">
-          Type:
-          <input
-            className="form-input"
-            type="text"
-            value={monsterType}
-            onChange={(event) => setMonsterType(event.target.value)}
-          />
-        </label>
-        <br />
-        <label className="form-label">
-          Strength:
-          <input
-            className="form-input"
-            type="number"
-            name="strength"
-            value={monsterStats.strength}
-            onChange={handleStatChange}
-          />
-        </label>
-        <br />
-        <label className="form-label">
-          Dexterity:
-          <input
-            className="form-input"
-            type="number"
-            name="dexterity"
-            value={monsterStats.dexterity}
-            onChange={handleStatChange}
-          />
-        </label>
-        <br />
-        <label className="form-label">
-          Constitution:
-          <input
-            className="form-input"
-            type="number"
-            name="constitution"
-            value={monsterStats.constitution}
-            onChange={handleStatChange}
-          />
-        </label>
-        <br />
-        <label className="form-label">
-          Intelligence:
-          <input
-            className="form-input"
-            type="number"
-            name="intelligence"
-            value={monsterStats.intelligence}
-            onChange={handleStatChange}
-          />
-        </label>
-        <br />
-        <label className="form-label">
-          Wisdom:
-          <input
-            className="form-input"
-            type="number"
-            name="wisdom"
-            value={monsterStats.wisdom}
-            onChange={handleStatChange}
-          />
-        </label>
-        <br />
-        <label className="form-label">
-          Charisma:
-          <input
-            className="form-input"
-            type="number"
-            name="charisma"
-            value={monsterStats.charisma}
-            onChange={handleStatChange}
-          />
-        </label>
-        <br />
-        <button className="generate-button" type="submit">
-          Generate Monster
-        </button>
-      </form>
-      {generatedMonster && (
-        <div className="monster-result-container">
-          <h2 className="monster-name">{generatedMonster.name}</h2>
-          <p className="monster-type">Type: {generatedMonster.type}</p>
-          <div className="monster-stats-container">
-            <p className="monster-stat">
-              Strength: {generatedMonster.stats.strength}
-            </p>
-            <p className="monster-stat">
-              Dexterity: {generatedMonster.stats.dexterity}
-            </p>
-            <p className="monster-stat">
-              Constitution: {generatedMonster.stats.constitution}
-            </p>
-            <p className="monster-stat">
-              Intelligence: {generatedMonster.stats.intelligence}
-            </p>
-            <p className="monster-stat">
-              Wisdom: {generatedMonster.stats.wisdom}
-            </p>
-            <p className="monster-stat">
-              Charisma: {generatedMonster.stats.charisma}
-            </p>
+    <div class="monster-section">
+      <main>
+        <h1 class="title">Monster Generator</h1>
+        <form onSubmit={handleSubmit}>
+          <label class="form-label">
+            Name:
+            <input
+              class="form-input"
+              type="text"
+              value={monsterName}
+              onChange={(event) => setMonsterName(event.target.value)}
+            />
+          </label>
+          <br />
+          <label class="form-label">
+            Type:
+            <input
+              class="form-input"
+              type="text"
+              value={monsterType}
+              onChange={(event) => setMonsterType(event.target.value)}
+            />
+          </label>
+          <br />
+          <label class="form-label">
+            Strength:
+            <input
+              class="form-input"
+              type="number"
+              name="strength"
+              value={monsterStats.strength}
+              onChange={handleStatChange}
+            />
+          </label>
+          <br />
+          <label class="form-label">
+            Dexterity:
+            <input
+              class="form-input"
+              type="number"
+              name="dexterity"
+              value={monsterStats.dexterity}
+              onChange={handleStatChange}
+            />
+          </label>
+          <br />
+          <label class="form-label">
+            Constitution:
+            <input
+              class="form-input"
+              type="number"
+              name="constitution"
+              value={monsterStats.constitution}
+              onChange={handleStatChange}
+            />
+          </label>
+          <br />
+          <label class="form-label">
+            Intelligence:
+            <input
+              class="form-input"
+              type="number"
+              name="intelligence"
+              value={monsterStats.intelligence}
+              onChange={handleStatChange}
+            />
+          </label>
+          <br />
+          <label class="form-label">
+            Wisdom:
+            <input
+              class="form-input"
+              type="number"
+              name="wisdom"
+              value={monsterStats.wisdom}
+              onChange={handleStatChange}
+            />
+          </label>
+          <br />
+          <label class="form-label">
+            Charisma:
+            <input
+              class="form-input"
+              type="number"
+              name="charisma"
+              value={monsterStats.charisma}
+              onChange={handleStatChange}
+            />
+          </label>
+          <br />
+          <button class="generate-button" type="submit">
+            Generate Monster
+          </button>
+        </form>
+        {generatedMonster && (
+          <div class="monster-section">
+            <div class="monster-description">
+              <h2>{generatedMonster.name}</h2>
+              <p>{generatedMonster.type}</p>
+              <ul>
+                <li>Strength: {generatedMonster.stats.strength}</li>
+                <li>Dexterity: {generatedMonster.stats.dexterity}</li>
+                <li>Constitution: {generatedMonster.stats.constitution}</li>
+                <li>Intelligence: {generatedMonster.stats.intelligence}</li>
+                <li>Wisdom: {generatedMonster.stats.wisdom}</li>
+                <li>Charisma: {generatedMonster.stats.charisma}</li>
+              </ul>
+            </div>
+            <div class="monster-image">
+              <img src={generatedMonster.image} alt={generatedMonster.name} />
+            </div>
           </div>
-        </div>
-      )}
-      {generatedImage && (
-        <div className="monster-image-container">
-          <img src={generatedImage} alt="Generated Monster" />
-        </div>
-      )}
+        )}
+      </main>
     </div>
   );
 }
