@@ -10,8 +10,7 @@ To run this application locally, you will need to have Node.js and npm installed
 2. Run npm install to install the project dependencies.
 3. Create a .env file in the root directory of the project with the following environment variables:
 
-    `REACT_APP_CHATGPT_API_KEY=<your ChatGPT API key>`
-    `REACT_APP_DALLE2_API_KEY=<your DALLE2 API key>`
+    `OPENAI_API_KEY=<your ChatGPT API key>`
 
 4. Run npm start to start the development server.
 5. Open http://localhost:3000 in your web browser.
